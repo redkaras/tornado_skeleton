@@ -23,7 +23,7 @@ def test_add_user(http_client, base_url):
     expect(mock_service).create_with_entity.and_return_future(
         mock.Mock(uuid=fake_uuid),
     )
-    response = yield http_client.fetch(base_url + '/add_user')
+    response = yield http_client.fetch(base_url + '/test/add_user')
     assert response.body == 'Added {}'.format(fake_uuid)
     assert response.code == httplib.OK
 
@@ -34,6 +34,6 @@ def test_add_user_already_exists(http_client, base_url):
     expect(mock_service).create_with_entity.and_raise(
         EntityAlreadyExistsError,
     )
-    response = yield http_client.fetch(base_url + '/add_user')
+    response = yield http_client.fetch(base_url + '/test/add_user')
     assert response.body == 'User name fg exist.'
     assert response.code == httplib.OK
